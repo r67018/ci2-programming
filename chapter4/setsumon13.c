@@ -7,6 +7,7 @@ int main(void) {
     for (int i = 1; i <= n; i++) {
         printf("*");
         if (i % 5 == 0) printf("\n");
+        else if (i == n) printf("\n");
     }
 
     return 0;

@@ -9,6 +9,7 @@ int main(void) {
         printf("%d ", res);
         res *= 2;
     }
+    printf("\n");
 
     return 0;
 }
