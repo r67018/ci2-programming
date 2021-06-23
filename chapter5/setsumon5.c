@@ -6,7 +6,6 @@ int main(void) {
     int x[N];
 
     for (i = 0; i < 7; i++) {
-        printf("x[%d] : ", i);
         scanf("%d", &x[i]);
     }
 
@@ -23,4 +22,3 @@ int main(void) {
 
     return 0;
 }
-

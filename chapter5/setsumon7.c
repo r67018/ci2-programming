@@ -7,7 +7,6 @@ int main(void) {
 
     int v[MAX_N];
     for (i = 0; i < n; i++) {
-        printf("v[%d]: ", i);
         scanf("%d", &v[i]);
     }
 
@@ -22,4 +21,3 @@ int main(void) {
 
     return 0;
 }
-
