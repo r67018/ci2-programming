@@ -1,11 +1,10 @@
 #include <stdio.h>
 
 int min3(int a, int b, int c) {
-    if (a < b) {
-        return a < c ? a : c;
-    } else {
-        return a < b ? a : b;
-    }
+    int min;
+    min = a < b ? a : b;
+    min = min < c ? min : c;
+    return min;
 }
 
 int main(void) {

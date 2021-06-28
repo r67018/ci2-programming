@@ -2,12 +2,12 @@
 
 void rev_intary(int v[], int n) {
     int i;
-    int v_cp[n];
+    int v_copy[n];
     for (i = 0; i < n; i++) {
-        v_cp[i] = v[i];
+        v_copy[i] = v[i];
     }
     for (i = 0; i < n; i++) {
-        v[i] = v_cp[n-i-1];
+        v[i] = v_copy[n-i-1];
     }
 }
 
