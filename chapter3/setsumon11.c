@@ -14,9 +14,6 @@ int main(void) {
             break;
     }
 
-    int a;
-    scanf("%d", &a);
-
     return 0;
 }
 
