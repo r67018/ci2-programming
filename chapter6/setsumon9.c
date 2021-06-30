@@ -20,9 +20,8 @@ int main(void) {
     intary_rcpy(v1, v2, n);
 
     for (i = 0; i < n; i++) {
-        printf("%d ", v1[i]);
+        printf("%d\n", v1[i]);
     }
-    putchar('\n');
 
     return 0;
 }

@@ -24,9 +24,8 @@ int main(void) {
     rev_intary(v, n);
 
     for (i = 0; i < n; i++) {
-        printf("%d ", v[i]);
+        printf("%d\n", v[i]);
     }
-    putchar('\n');
 
     return 0;
 }
