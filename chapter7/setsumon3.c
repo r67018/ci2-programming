@@ -1,14 +1,19 @@
 #include <stdio.h>
 
 unsigned rrotate(unsigned x, int n) {
+    return (x >> n) | (x << (32 - n));
+}
+
+void print_bits(unsigned x) {
     int i;
-    unsigned y = 0;
-    for (i = 0; i < 32; i++) {
-        if (x & (1<<i)) {
-            y |= 1<<((i-n+32) % 32);
+    for (i = 31; i >= 0; i--) {
+        if (x & (1 << i)) {
+            printf("1");
+        } else {
+            printf("0");
         }
     }
-    return y;
+    printf("\n");
 }
 
 int main(void) {
@@ -16,8 +21,7 @@ int main(void) {
     unsigned x;
     scanf("%u%d", &x, &n);
 
-    unsigned y = rrotate(x, n);
-    printf("%u\n", y);
+    print_bits(rrotate(x, n));
 
     return 0;
 }
