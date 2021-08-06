@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 
-int zeller(int y, int m, const int d);
+int zeller(const int year, const int month, const int day);
 int getDays(const int year, const int month);
 void printCalendar(const int year, const int month, const int first_day, const int days);
 
@@ -18,6 +18,10 @@ int main() {
     printf("month : ");
     scanf("%d", &month);
 
+    if (month < 1 || 12 < month) {
+        return 1;
+    }
+
     const int days = getDays(year, month);
     const int first_day = zeller(year, month, 1);
     printCalendar(year, month, first_day, days);
@@ -26,7 +30,10 @@ int main() {
 }
 
 
-int zeller(int y, int m, const int d) {
+int zeller(const int year, const int month, const int day) {
+    int y = year;
+    int m = month;
+    int d = day;
     if (m <= 2) {
         y--;
         m += 12;
@@ -91,7 +98,7 @@ void printCalendar(const int year, const int month, const int first_day, const i
         "December"
     };
 
-    int i, j;
+    int i;
     const int day_of_week = zeller(year, month, 1);
 
     printf("\n%s %d\n", month_of_year[month-1], year);
