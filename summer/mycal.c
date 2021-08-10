@@ -99,16 +99,15 @@ void printCalendar(const int year, const int month, const int first_day, const i
     };
 
     int i;
-    const int day_of_week = zeller(year, month, 1);
 
     printf("\n%s %d\n", month_of_year[month-1], year);
     printf("Su Mo Tu We Th Fr Sa\n");
-    for (i = 0; i < day_of_week; i++) {
+    for (i = 0; i < first_day; i++) {
         printf("   ");
     }
     for (i = 1; i <= days; i++) {
         printf("%2d ", i);
-        if ((i + day_of_week) % 7 == 0) {
+        if ((i + first_day) % 7 == 0) {
             printf("\n");
         } else if (i == days) {
             printf("\n");
