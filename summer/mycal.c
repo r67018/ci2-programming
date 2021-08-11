@@ -1,7 +1,3 @@
-// Goto Ryosei
-// 2021-08-04
-
-
 #include <stdio.h>
 #include <stdbool.h>
 
