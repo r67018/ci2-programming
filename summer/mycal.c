@@ -4,10 +4,10 @@
 
 int zeller(const int year, const int month, const int day);
 int getDays(const int year, const int month);
-void printCalendar(const int year, const int month, const int first_day, const int days);
+void printCalendar(const int year, const int month);
 
 
-int main() {
+int main(void) {
     int year, month;
     printf("year : ");
     scanf("%d", &year);
@@ -18,9 +18,7 @@ int main() {
         return 1;
     }
 
-    const int days = getDays(year, month);
-    const int first_day = zeller(year, month, 1);
-    printCalendar(year, month, first_day, days);
+    printCalendar(year, month);
 
     return 0;
 }
@@ -38,7 +36,8 @@ int zeller(const int year, const int month, const int day) {
     C = y / 100;
     Y = y % 100;
     gamma = 5 * C + C / 4;
-    h = (d + (26 * (m + 1)) / 10 + Y + Y / 4 + gamma + 6) % 7; // 日曜日が0になるように調整
+    // h = (d + (26 * (m + 1)) / 10 + Y + Y / 4 + gamma + 6) % 7; // 日曜日が0になるように調整
+    h = (y + y/4 - y/100 + y/400 + (13 * m + 8)/5 + d) % 7;
     return h;
 }
 
@@ -63,12 +62,17 @@ int getDays(const int year, const int month) {
             {
                 // 閏年かどうか
                 bool is_leap = false;
-                if (year % 4 == 0) {
+                if (year % 400 == 0) {
                     is_leap = true;
-                    if (year % 100 == 0 && year % 400 == 0) {
-                        is_leap = false;
-                    }
+                } else if ((year % 100 != 0) && (year % 4 == 0)) {
+                    is_leap = true;
                 }
+                // if (year % 4 == 0) {
+                //     is_leap = true;
+                //     if (year % 100 == 0 && year % 400 != 0) {
+                //         is_leap = false;
+                //     }
+                // }
                 if (is_leap) {
                     return 29;
                 } else {
@@ -78,7 +82,7 @@ int getDays(const int year, const int month) {
     }
 }
 
-void printCalendar(const int year, const int month, const int first_day, const int days) {
+void printCalendar(const int year, const int month) {
     static const char *month_of_year[] = {
         "January",
         "Februay",
@@ -95,6 +99,10 @@ void printCalendar(const int year, const int month, const int first_day, const i
     };
 
     int i;
+    const int days = getDays(year, month);
+    const int first_day = zeller(year, month, 1);
+    printf("days: %d\n", days);
+    printf("first_day: %d\n", first_day);
 
     printf("\n%s %d\n", month_of_year[month-1], year);
     printf("Su Mo Tu We Th Fr Sa\n");
