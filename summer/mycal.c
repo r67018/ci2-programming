@@ -2,47 +2,53 @@
 #include <stdbool.h>
 
 
-int zeller(const int year, const int month, const int day);
-int getDays(const int year, const int month);
-void printCalendar(const int year, const int month);
+typedef struct {
+    int year;
+    int month;
+} Date;
+
+
+int calFirstDayOfMonth(const Date*);
+int getDays(const Date*);
+void printCalendar(const Date*);
 
 
 int main(void) {
-    int year, month;
+    Date date;
     printf("year : ");
-    scanf("%d", &year);
+    scanf("%d", &date.year);
     printf("month : ");
-    scanf("%d", &month);
+    scanf("%d", &date.month);
 
-    if (month < 1 || 12 < month) {
+    if (date.month < 1 || 12 < date.month) {
         return 1;
     }
 
-    printCalendar(year, month);
+    printCalendar(&date);
 
     return 0;
 }
 
 
-int zeller(const int year, const int month, const int day) {
-    int y = year;
-    int m = month;
-    int d = day;
+// ツェラーの公式で朔日の曜日を求める
+int calFirstDayOfMonth(const Date* date) {
+    int y = date->year;
+    int m = date->month;
+    int d = 1;
     if (m <= 2) {
         y--;
         m += 12;
     }
-    int C, Y, gamma, h;
-    C = y / 100;
-    Y = y % 100;
-    gamma = 5 * C + C / 4;
-    // h = (d + (26 * (m + 1)) / 10 + Y + Y / 4 + gamma + 6) % 7; // 日曜日が0になるように調整
-    h = (y + y/4 - y/100 + y/400 + (13 * m + 8)/5 + d) % 7;
+
+    int h = (y + y/4 - y/100 + y/400 + (13 * m + 8)/5 + d) % 7; // 日曜日が0
+
     return h;
 }
 
-int getDays(const int year, const int month) {
-    switch (month) {
+
+// その月の日数を求める
+int getDays(const Date* date) {
+    switch (date->month) {
         case 1:
         case 3:
         case 5:
@@ -62,17 +68,14 @@ int getDays(const int year, const int month) {
             {
                 // 閏年かどうか
                 bool is_leap = false;
-                if (year % 400 == 0) {
+                int y = date->year;
+
+                if (y % 400 == 0) {
                     is_leap = true;
-                } else if ((year % 100 != 0) && (year % 4 == 0)) {
+                } else if ((y % 100 != 0) && (y % 4 == 0)) {
                     is_leap = true;
                 }
-                // if (year % 4 == 0) {
-                //     is_leap = true;
-                //     if (year % 100 == 0 && year % 400 != 0) {
-                //         is_leap = false;
-                //     }
-                // }
+
                 if (is_leap) {
                     return 29;
                 } else {
@@ -82,8 +85,10 @@ int getDays(const int year, const int month) {
     }
 }
 
-void printCalendar(const int year, const int month) {
-    static const char *month_of_year[] = {
+
+// カレンダーを表示
+void printCalendar(const Date* date) {
+    static const char* month_of_year[] = {
         "January",
         "Februay",
         "March",
@@ -99,12 +104,10 @@ void printCalendar(const int year, const int month) {
     };
 
     int i;
-    const int days = getDays(year, month);
-    const int first_day = zeller(year, month, 1);
-    printf("days: %d\n", days);
-    printf("first_day: %d\n", first_day);
+    const int days = getDays(date);
+    const int first_day = calFirstDayOfMonth(date);
 
-    printf("\n%s %d\n", month_of_year[month-1], year);
+    printf("\n%s %d\n", month_of_year[date->month-1], date->year);
     printf("Su Mo Tu We Th Fr Sa\n");
     for (i = 0; i < first_day; i++) {
         printf("   ");
