@@ -27,6 +27,8 @@ int main(void) {
 
     printCalendar(date);
 
+    free(date);
+
     return 0;
 }
 
