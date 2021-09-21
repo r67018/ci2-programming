@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include <stdbool.h>
+#include <stdlib.h>
+#include <assert.h>
 
 
 typedef struct {
@@ -8,30 +9,30 @@ typedef struct {
 } Date;
 
 
-int calFirstDayOfMonth(const Date*);
-int getDays(const Date*);
-void printCalendar(const Date*);
+int calFirstDayOfMonth(const Date* const);
+int getDays(const Date* const);
+void printCalendar(const Date* const);
 
 
 int main(void) {
-    Date date;
+    Date* date = (Date*)malloc(sizeof(Date));
     printf("year : ");
-    scanf("%d", &date.year);
+    scanf("%d", &date->year);
     printf("month : ");
-    scanf("%d", &date.month);
+    scanf("%d", &date->month);
 
-    if (date.month < 1 || 12 < date.month) {
+    if (date->month < 1 || 12 < date->month) {
         return 1;
     }
 
-    printCalendar(&date);
+    printCalendar(date);
 
     return 0;
 }
 
 
 // ツェラーの公式で朔日の曜日を求める
-int calFirstDayOfMonth(const Date* date) {
+int calFirstDayOfMonth(const Date* const date) {
     int y = date->year;
     int m = date->month;
     int d = 1;
@@ -47,7 +48,8 @@ int calFirstDayOfMonth(const Date* date) {
 
 
 // その月の日数を求める
-int getDays(const Date* date) {
+int getDays(const Date* const date) {
+    assert(1 <= date->month && date->month <= 12);
     switch (date->month) {
         case 1:
         case 3:
@@ -67,27 +69,21 @@ int getDays(const Date* date) {
         case 2:
             {
                 // 閏年かどうか
-                bool is_leap = false;
                 int y = date->year;
-
                 if (y % 400 == 0) {
-                    is_leap = true;
+                    return 29;
                 } else if ((y % 100 != 0) && (y % 4 == 0)) {
-                    is_leap = true;
+                    return 29;
                 }
 
-                if (is_leap) {
-                    return 29;
-                } else {
-                    return 28;
-                }
+                return 28;
             }
     }
 }
 
 
 // カレンダーを表示
-void printCalendar(const Date* date) {
+void printCalendar(const Date* const date) {
     static const char* month_of_year[] = {
         "January",
         "Februay",
