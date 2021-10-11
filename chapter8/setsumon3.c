@@ -4,7 +4,7 @@
     type tmp = a; \
     a = b; \
     b = tmp; \
-} while (0);
+} while (0)
 
 int main(void) {
     int x, y;
