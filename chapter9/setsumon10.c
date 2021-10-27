@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 #define N 256
 
 void del_digit(char s[]) {
     int i = 0, tail = 0;
     while (s[i]) {
-        if (s[i] < '0' || '9' < s[i]) {
+        if (!isdigit(s[i])) {
             s[tail] = s[i];
             tail++;
         }
