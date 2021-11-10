@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-int  get_days_count(int, int);
-void decrement_date(int *, int *, int *);
-void increment_date(int *, int *, int *);
+unsigned  get_month_range(unsigned, unsigned);
+void decrement_date(unsigned *, unsigned *, unsigned *);
+void increment_date(unsigned *, unsigned *, unsigned *);
 
 int main(void) {
-    int y, m, d;
+    unsigned y, m, d;
     scanf("%d%d%d", &d, &m, &y);
 
     decrement_date(&y, &m, &d);
@@ -20,7 +20,7 @@ int main(void) {
     return 0;
 }
 
-int get_days_count(int y, int m) {
+unsigned get_month_range(unsigned y, unsigned m) {
     switch (m) {
         case 1:
         case 3:
@@ -39,15 +39,13 @@ int get_days_count(int y, int m) {
     }
 
     // February
-    if (y % 400 == 0) {
-        return 29;
-    } else if ((y % 100 != 0) && (y % 4 == 0)) {
+    if ((y % 400 == 0) || ((y % 100 != 0) && (y % 4 == 0))) {
         return 29;
     }
     return 28;
 }
 
-void decrement_date(int *y, int *m, int *d) {
+void decrement_date(unsigned *y, unsigned *m, unsigned *d) {
     (*d)--;
     if (*d < 1) {
         (*m)--;
@@ -55,14 +53,14 @@ void decrement_date(int *y, int *m, int *d) {
             (*y)--;
             *m = 12;
         }
-        *d = get_days_count(*y, *m);
+        *d = get_month_range(*y, *m);
     }
 }
 
-void increment_date(int *y, int *m, int *d) {
-    int days_count = get_days_count(*y, *m);
+void increment_date(unsigned *y, unsigned *m, unsigned *d) {
+    unsigned month_range = get_month_range(*y, *m);
     (*d)++;
-    if (*d > days_count) {
+    if (*d > month_range) {
         (*m)++;
         *d = 1;
         if (*m > 12) {

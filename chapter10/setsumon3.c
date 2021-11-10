@@ -18,9 +18,7 @@ int main(void) {
 
     sort(&n1, &n2, &n3);
 
-    printf("%d\n", n1);
-    printf("%d\n", n2);
-    printf("%d\n", n3);
+    printf("%d\n%d\n%d\n", n1, n2, n3);
 
     return 0;
 }
