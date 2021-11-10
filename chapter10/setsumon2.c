@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-unsigned  get_month_range(unsigned, unsigned);
+unsigned get_month_range(unsigned, unsigned);
 void decrement_date(unsigned *, unsigned *, unsigned *);
 void increment_date(unsigned *, unsigned *, unsigned *);
 
