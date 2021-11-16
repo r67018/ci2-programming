@@ -6,16 +6,16 @@ void increment_date(unsigned *, unsigned *, unsigned *);
 
 int main(void) {
     unsigned y, m, d;
-    scanf("%d%d%d", &d, &m, &y);
+    scanf("%u%u%u", &d, &m, &y);
 
     decrement_date(&y, &m, &d);
-    printf("%02d/%02d/%04d\n", d, m, y);
+    printf("%02u/%02u/%04u\n", d, m, y);
 
     // revert date back
     increment_date(&y, &m, &d);
 
     increment_date(&y, &m, &d);
-    printf("%02d/%02d/%04d\n", d, m, y);
+    printf("%02u/%02u/%04u\n", d, m, y);
 
     return 0;
 }
